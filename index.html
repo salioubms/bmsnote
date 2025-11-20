@@ -51,7 +51,7 @@
             width: 100%;
             border-collapse: collapse;
             font-size: 14px;
-            min-width: 1500px;
+            min-width: 1200px;
         }
 
         thead {
@@ -125,7 +125,7 @@
         .summary {
             margin-top: 30px;
             padding: 20px;
-            background: linear-gradient(135deg, #2ecc71 0%, #27ae60 100%);
+            background: linear-gradient(135deg, #333 0%, #555 100%);
             color: white;
             border-radius: 8px;
             text-align: center;
@@ -283,7 +283,7 @@
                     </tr>
 
                     <!-- Philosophie -->
-                    <tr data-coeff="3">
+                    <tr data-coeff="2">
                         <td class="matiere">Philosophie</td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
@@ -296,7 +296,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
-                        <td class="coefficient">3</td>
+                        <td class="coefficient">2</td>
                         <td class="total">-</td>
                     </tr>
 
@@ -336,9 +336,27 @@
                         <td class="total">-</td>
                     </tr>
 
-                    <!-- Art plastique -->
+                    <!-- EPS -->
                     <tr data-coeff="1" data-art="true">
-                        <td class="matiere">Art plastique</td>
+                        <td class="matiere">EPS</td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
+                        <td class="moyenne">-</td>
+                        <td class="coefficient">1</td>
+                        <td class="total">-</td>
+                    </tr>
+
+                    <!-- AP/MUS -->
+                    <tr data-coeff="1" data-art="true">
+                        <td class="matiere">AP/MUS</td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
@@ -366,7 +384,7 @@
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">Total Coefficients</div>
-                    <div class="summary-value" id="totalCoeffs">25</div>
+                    <div class="summary-value" id="totalCoeffs">24</div>
                 </div>
                 <div class="summary-item">
                     <div class="summary-label">Moyenne Générale</div>
@@ -377,9 +395,9 @@
 
         <div class="legend">
             <h3>📋 Système de Coefficients</h3>
-            <p><strong>Interrogations :</strong> Coefficient 1 (sauf Art plastique)</p>
-            <p><strong>Devoirs :</strong> Coefficient 2 (sauf Art plastique)</p>
-            <p><strong>Art plastique :</strong> Toutes évaluations = Coefficient 1</p>
+            <p><strong>Interrogations :</strong> Coefficient 1 (sauf AP/MUS et EPS)</p>
+            <p><strong>Devoirs :</strong> Coefficient 2 (sauf AP/MUS et EPS)</p>
+            <p><strong>AP/MUS et EPS :</strong> Toutes évaluations = Coefficient 1</p>
             <p style="margin-top: 10px; font-style: italic;">Les moyennes sont calculées automatiquement à chaque saisie de note.</p>
         </div>
     </div>
