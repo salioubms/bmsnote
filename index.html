@@ -415,6 +415,11 @@
         </div>
         <h1>🎓 Bms Note</h1>
         <p class="subtitle">Tableau Intelligent de Suivi Scolaire - Terminale D</p>
+        <div class="student-info-container" style="text-align: center; margin-bottom: 20px;">
+            <label for="studentName" style="font-weight: 600; color: var(--text-secondary);">Élève : </label>
+            <input type="text" id="studentName" placeholder="Entrez votre nom"
+                style="width: 250px; text-align: left; padding-left: 10px;">
+        </div>
 
         <div class="table-wrapper">
             <table id="notesTable">
@@ -424,6 +429,7 @@
                         <th colspan="6" class="section-header">Interrogations</th>
                         <th colspan="4" class="section-header">Devoirs</th>
                         <th rowspan="2">Moyenne</th>
+                        <th rowspan="2">Appréciation</th>
                         <th rowspan="2">Coefficient</th>
                         <th rowspan="2">Total Points</th>
                     </tr>
@@ -455,6 +461,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">4</td>
                         <td class="total">-</td>
                     </tr>
@@ -473,6 +480,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">4</td>
                         <td class="total">-</td>
                     </tr>
@@ -491,6 +499,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">4</td>
                         <td class="total">-</td>
                     </tr>
@@ -509,6 +518,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">3</td>
                         <td class="total">-</td>
                     </tr>
@@ -527,6 +537,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">2</td>
                         <td class="total">-</td>
                     </tr>
@@ -545,6 +556,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">2</td>
                         <td class="total">-</td>
                     </tr>
@@ -563,6 +575,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="devoir"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">1</td>
                         <td class="total">-</td>
                     </tr>
@@ -581,6 +594,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">1</td>
                         <td class="total">-</td>
                     </tr>
@@ -599,6 +613,7 @@
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td><input type="number" step="0.25" min="0" max="20" class="interro"></td>
                         <td class="moyenne">-</td>
+                        <td class="appreciation">-</td>
                         <td class="coefficient">1</td>
                         <td class="total">-</td>
                     </tr>
@@ -617,6 +632,14 @@
 
         <div class="summary">
             <h2>📊 Résumé Général</h2>
+
+            <div class="progress-container"
+                style="margin: 20px 0; background: rgba(0,0,0,0.1); border-radius: 10px; height: 20px; overflow: hidden;">
+                <div id="progressBar"
+                    style="width: 0%; height: 100%; background: linear-gradient(90deg, #e74c3c, #f39c12, #2ecc71); transition: width 0.5s ease;">
+                </div>
+            </div>
+
             <div class="summary-grid">
                 <div class="summary-item">
                     <div class="summary-label">Total Points</div>
@@ -630,6 +653,20 @@
                     <div class="summary-label">Moyenne Générale</div>
                     <div class="summary-value" id="moyenneGenerale">0.00</div>
                 </div>
+            </div>
+
+            <div class="goal-calculator"
+                style="margin-top: 30px; padding-top: 20px; border-top: 1px solid rgba(255,255,255,0.2);">
+                <h3 style="margin-bottom: 15px; font-size: 1.2em;">🎯 Objectif Moyenne</h3>
+                <div style="display: flex; gap: 10px; justify-content: center; align-items: center; flex-wrap: wrap;">
+                    <label>Je vise :</label>
+                    <input type="number" id="targetGrade" min="0" max="20" step="0.5" placeholder="14"
+                        style="width: 80px;">
+                    <span>/ 20</span>
+                    <button class="btn" onclick="calculateGoal()"
+                        style="padding: 8px 15px; font-size: 0.9em; background: var(--accent-color); color: white;">Calculer</button>
+                </div>
+                <p id="goalResult" style="margin-top: 15px; font-weight: bold; min-height: 24px;"></p>
             </div>
         </div>
 
@@ -787,6 +824,156 @@
                 localStorage.setItem(`note_${index}`, this.value);
             });
         });
+
+        // Student Name Persistence
+        const studentNameInput = document.getElementById('studentName');
+        if (localStorage.getItem('studentName')) {
+            studentNameInput.value = localStorage.getItem('studentName');
+        }
+        studentNameInput.addEventListener('input', function () {
+            localStorage.setItem('studentName', this.value);
+        });
+
+        function getAppreciation(moyenne) {
+            if (moyenne < 8) return "Fragile";
+            if (moyenne < 10) return "Insuffisant";
+            if (moyenne < 12) return "Passable";
+            if (moyenne < 14) return "Assez Bien";
+            if (moyenne < 16) return "Bien";
+            if (moyenne < 18) return "Très Bien";
+            return "Excellent";
+        }
+
+        function calculateGoal() {
+            const target = parseFloat(document.getElementById('targetGrade').value);
+            const totalCoeffs = parseFloat(document.getElementById('totalCoeffs').textContent);
+            const currentPoints = parseFloat(document.getElementById('totalPoints').textContent);
+            const resultEl = document.getElementById('goalResult');
+
+            if (isNaN(target)) {
+                resultEl.textContent = "Veuillez entrer une moyenne visée.";
+                resultEl.style.color = "var(--text-secondary)";
+                return;
+            }
+
+            const pointsNeeded = (target * totalCoeffs) - currentPoints;
+
+            if (pointsNeeded <= 0) {
+                resultEl.textContent = "🎉 Bravo ! Vous avez déjà atteint cet objectif !";
+                resultEl.style.color = "var(--grade-good)";
+            } else {
+                resultEl.textContent = `Il vous manque ${pointsNeeded.toFixed(2)} points pour atteindre ${target}/20.`;
+                resultEl.style.color = "var(--grade-avg)";
+            }
+        }
+
+        // Update calculateRow to handle appreciation
+        const originalCalculateRow = calculateRow;
+        calculateRow = function (row) {
+            // Re-implementing parts of calculateRow to inject appreciation logic
+            // We can't easily hook into the middle, so we'll just call the original logic 
+            // (which we can't do easily because I'm replacing the function entirely in this scope, 
+            // but I can just copy the logic since I am editing the file).
+
+            // Actually, better to just rewrite the function content in the file edit above? 
+            // No, I am in the JS block now. I will just overwrite the calculateRow function in the file.
+
+            const isArt = row.dataset.art === 'true';
+            const coeff = parseInt(row.dataset.coeff);
+
+            const interros = row.querySelectorAll('.interro');
+            const devoirs = row.querySelectorAll('.devoir');
+
+            let totalPoints = 0;
+            let totalCoeffs = 0;
+
+            interros.forEach(input => {
+                const value = parseFloat(input.value);
+                updateInputColor(input);
+                if (!isNaN(value) && value >= 0) {
+                    totalPoints += value * 1;
+                    totalCoeffs += 1;
+                }
+            });
+
+            if (!isArt) {
+                devoirs.forEach(input => {
+                    const value = parseFloat(input.value);
+                    updateInputColor(input);
+                    if (!isNaN(value) && value >= 0) {
+                        totalPoints += value * 2;
+                        totalCoeffs += 2;
+                    }
+                });
+            }
+
+            const moyenne = totalCoeffs > 0 ? totalPoints / totalCoeffs : 0;
+            const totalMatiere = moyenne * coeff;
+
+            const moyenneCell = row.querySelector('.moyenne');
+            const totalCell = row.querySelector('.total');
+            const appCell = row.querySelector('.appreciation');
+
+            moyenneCell.textContent = moyenne > 0 ? moyenne.toFixed(2) : '-';
+            totalCell.textContent = totalMatiere > 0 ? totalMatiere.toFixed(2) : '-';
+
+            // Appreciation Logic
+            if (moyenne > 0) {
+                appCell.textContent = getAppreciation(moyenne);
+                appCell.style.fontWeight = "bold";
+                appCell.style.color = getColorClass(moyenne) === 'grade-bad' ? 'var(--grade-bad)' :
+                    getColorClass(moyenne) === 'grade-avg' ? 'var(--grade-avg)' : 'var(--grade-good)';
+            } else {
+                appCell.textContent = '-';
+                appCell.style.color = 'inherit';
+            }
+
+            moyenneCell.className = 'moyenne';
+            if (moyenne > 0) {
+                moyenneCell.classList.add(getColorClass(moyenne));
+            }
+
+            calculateGeneral();
+        };
+
+        // Update calculateGeneral to handle Progress Bar
+        const originalCalculateGeneral = calculateGeneral;
+        calculateGeneral = function () {
+            const rows = table.querySelectorAll('tbody tr');
+            let totalPoints = 0;
+            let totalCoeffs = 0;
+
+            rows.forEach(row => {
+                const moyenneCell = row.querySelector('.moyenne');
+                const moyenne = parseFloat(moyenneCell.textContent);
+                const coeff = parseInt(row.dataset.coeff);
+
+                if (!isNaN(moyenne) && moyenne > 0) {
+                    totalPoints += moyenne * coeff;
+                    totalCoeffs += coeff;
+                }
+            });
+
+            const moyenneGenerale = totalCoeffs > 0 ? totalPoints / totalCoeffs : 0;
+
+            document.getElementById('totalPoints').textContent = totalPoints.toFixed(2);
+            document.getElementById('totalCoeffs').textContent = totalCoeffs;
+
+            const genEl = document.getElementById('moyenneGenerale');
+            genEl.textContent = moyenneGenerale.toFixed(2);
+
+            genEl.className = 'summary-value';
+            if (moyenneGenerale > 0) {
+                genEl.style.color = moyenneGenerale < 10 ? '#e74c3c' : (moyenneGenerale < 14 ? '#f39c12' : '#2ecc71');
+            } else {
+                genEl.style.color = 'inherit';
+            }
+
+            // Progress Bar Update
+            const progressBar = document.getElementById('progressBar');
+            const percentage = (moyenneGenerale / 20) * 100;
+            progressBar.style.width = `${percentage}%`;
+        };
     </script>
 </body>
 
